@@ -32,22 +32,25 @@ describe Spotting do
     end
   end
 
-   it "provides a count of spottings for a given bird" do
-     Spotting.create!(bird_name: 'bluejay', spotted_by: 'Jon', location: 'Somerville')
-     Spotting.create!(bird_name: 'bluejay', spotted_by: 'Ann', location: 'Cambridge')
-     Spotting.create!(bird_name: 'cardinal', spotted_by: 'Frank', location: 'Boston')
-     expect(Spotting.bird_count('robin')).to eql(0)
-     expect(Spotting.bird_count('cardinal')).to eql(1)
-     expect(Spotting.bird_count('bluejay')).to eql(2)
-   end
+  describe '#Count' do
+    before(:each) do
+      Spotting.create!(bird_name: 'bluejay', spotted_by: 'Jon', location: 'Somerville')
+      Spotting.create!(bird_name: 'bluejay', spotted_by: 'Ann', location: 'Cambridge')
+      Spotting.create!(bird_name: 'cardinal', spotted_by: 'Frank', location: 'Boston')
+    end
+    # OR
+    #let(:spotting) { Spotting.create!(bird_name: 'bluejay', spotted_by: 'Jon', location: 'Somerville') }
 
-   it "provides a count of spotting for a given location" do
-     Spotting.create!(bird_name: 'bluejay', spotted_by: 'Jon', location: 'Somerville')
-     Spotting.create!(bird_name: 'bluejay', spotted_by: 'Ann', location: 'Cambridge')
-     Spotting.create!(bird_name: 'cardinal', spotted_by: 'Frank', location: 'Boston')
-     expect(Spotting.location_count('Somerville')).to eql(1)
-     expect(Spotting.location_count('Cambridge')).to eql(1)
-     expect(Spotting.location_count('Boston')).to eql(1)
-   end
+    it "provides a count of spottings for a given bird" do
+      expect(Spotting.bird_count('robin')).to eql(0)
+      expect(Spotting.bird_count('cardinal')).to eql(1)
+      expect(Spotting.bird_count('bluejay')).to eql(2)
+    end
 
+    it "provides a count of spotting for a given location" do
+       expect(Spotting.location_count('Somerville')).to eql(1)
+       expect(Spotting.location_count('Cambridge')).to eql(1)
+       expect(Spotting.location_count('Boston')).to eql(1)
+     end
+  end
 end
